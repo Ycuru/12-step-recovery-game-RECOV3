@@ -1,0 +1,68 @@
+const boardSize = 100;
+let position = 0;
+
+const challengeDeck = [
+{
+title: "Detox Centre Admittance",
+message: "🏥 You needed help—brave move. Move back 6 squares.",
+effect: () => {
+position = Math.max(position - 6, 0);
+}
+},
+{
+title: "Jail Time",
+message: "🚔 Reflect and reset. Back to start.",
+effect: () => {
+position = 0;
+}
+}
+];
+
+function createBoard() {
+const board = document.getElementById("board");
+for (let i = 0; i < boardSize; i++) {
+const square = document.createElement("div");
+square.setAttribute("data-index", i);
+square.textContent = i + 1;
+board.appendChild(square);
+}
+}
+
+function movePlayer(pos) {
+document.querySelectorAll(".player").forEach(p => p.remove());
+const target = document.querySelector(`[data-index='${pos}']`);
+const token = document.createElement("div");
+token.className = "player";
+token.textContent = "👣";
+target.appendChild(token);
+
+if (pos === 20 || pos === 42) drawChallengeCard();
+}
+
+function drawChallengeCard() {
+const card = challengeDeck[Math.floor(Math.random() * challengeDeck.length)];
+document.getElementById("card-title").textContent = card.title;
+document.getElementById("card-message").textContent = card.message;
+document.getElementById("card").classList.remove("hidden");
+card.effect();
+}
+
+function closeCard() {
+document.getElementById("card").classList.add("hidden");
+movePlayer(position);
+}
+
+document.getElementById("rollDice").addEventListener("click", () => {
+const roll = Math.floor(Math.random() * 6) + 1;
+position += roll;
+if (position >= boardSize) {
+document.getElementById("result").textContent = "🎉 You’ve reached the finish!";
+position = boardSize - 1;
+} else {
+document.getElementById("result").textContent = `You rolled a ${roll}. Now on square ${position + 1}.`;
+}
+movePlayer(position);
+});
+
+createBoard();
+movePlayer(position);

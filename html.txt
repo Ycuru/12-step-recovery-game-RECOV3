@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Recovery Game</title>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<h1>🎲 Recovery Game</h1>
+<p>Roll the dice to move forward. Watch out for recovery challenges and milestones!</p>
+<div id="board"></div>
+<div id="card" class="hidden">
+<h2 id="card-title"></h2>
+<p id="card-message"></p>
+<button onclick="closeCard()">Keep Going</button>
+</div>
+<button id="rollDice">🎲 Roll Dice</button>
+<p id="result"></p>
+
+<script src="script.js"></script>
+</body>
+</html>
